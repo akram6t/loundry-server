@@ -27,9 +27,11 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 const server = http.createServer(app);
 
 const profilesDirectory = path.join(__dirname, 'uploads/profiles');
-const iconsDirectory = path.join(__dirname, 'uploads/media');
+const mediaDirectory = path.join(__dirname, 'uploads/media');
+const iconsDirectory = path.join(__dirname, 'uploads/icons');
 app.use('/profiles', express.static(profilesDirectory));
-app.use('/media', express.static(iconsDirectory));
+app.use('/media', express.static(mediaDirectory));
+app.use('/icons', express.static(iconsDirectory));
 
 app.use('/apis', bannersApiRouter);
 app.use('/apis', servicesApiRouter);
