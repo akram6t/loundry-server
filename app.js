@@ -18,6 +18,7 @@ const tcApiRouter = require('./apis/tc');
 const addonsApiRouter = require('./apis/addons');
 
 const adminApisRouter = require('./admin/adminApis');
+const { sendNotification } = require('./utils/CloudMessaging');
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true, limit: '10mb'}));
@@ -45,6 +46,12 @@ app.use('/apis', tcApiRouter);
 app.use('/apis', addonsApiRouter);
 
 app.use('/admin/apis', adminApisRouter);
+
+// cloud messaging
+app.get('/notify', (req, res) => {
+    const { token, title, message } = req.body;
+   sendNotification(token, title, message);
+});
 
 // start server
 server.listen(PORT, () => console.log("Server running in PORT: " + PORT));
