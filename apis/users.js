@@ -52,7 +52,7 @@ router.get('/users/:uid', (req, res) => {
         console.log('get user...')
         const db = client.db();
         const collection = db.collection(Collections.USERS);
-        const query = { _id: uid };
+        const query = { uid: uid };
         collection.findOne(query).then((result, err) => {
             res.send({
                 status: true,
@@ -84,7 +84,7 @@ router.post('/create_user', (req, res) => {
         console.log('create user...')
         const db = client.db();
         const collection = db.collection(Collections.USERS);
-        const insertData = { ...data, date: new Date().toISOString() }
+        const insertData = { ...data, status: 'Active', date: new Date().toISOString() }
         const result = await collection.insertOne(insertData);
 
         if (result.insertedId) {
